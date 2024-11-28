@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+
+
+{% block contents %}
+<br>
+<!-- Main Content-->
+<main class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7 fw-bold">
+                {% comment %} <h2 class="fw-bold text-success">ご内容を入力してください</h2> {% endcomment %}
+                {% comment %} <br> {% endcomment %}
+                <p></p>
+                <h4 class="text-secondary">連絡を取りたいですか？
+                    以下のフォームに入力してメッセージを送信してください。
+                    できるだけ早くご連絡します。
+                </h4>
+                {% if messages %}
+                <ul clas="list-unstyled" style="list-style: none">
+                    {% for message in messages %}
+                    <li {% if message.tags %} class="{{message.tags}}"{% endif %}>
+                        {{message}}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                <div class="my-5">
+                    <form method='post'>
+                        {% csrf_token %}
+                        {% for field in form %}
+                        <div class="form-floating">
+                            <div class="form-group floating-label-form-group controls">
+                                {{field.label_tag}}
+                                {{field}}
+                                <p class="help-block text-django"></p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <br>
+                        <button type="submit"
+                                class="btn btn-outline-success"
+                                id="sendMessageButton">送信</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+</main>
+{% endblock %}
